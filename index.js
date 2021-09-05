@@ -10,7 +10,7 @@ dotenv.config({path:'./config.env'})
 
 require('./db/databaseConnection.js');
 
-
+var score=0;
 
 //requiring models
 // const biology=require("./models/schema.js");
@@ -148,31 +148,27 @@ app.get("/", function(req, res) {
 });
 
 
+
+
 app.get("/test", function(req,res){
 
 
 
-
-
-
-
-if(number==0)
+if(number==2)
 {
-  physics.find({},function(err,foundmcq){
-    console.log(foundmcq)
+  res.send("wowo your score is "+score);
+}
 
-    res.render("question-design",{question:foundmcq[number].question,option1:foundmcq[number].op1,option2:foundmcq[number].op2,option3:foundmcq[number].op3,option4:foundmcq[number].op4});
-})}
 else{
 
   biology.find({},function(err,foundmcq){
-    console.log(foundmcq)
+  //
+  //  console.log(foundmcq)
     res.render("question-design",{question:foundmcq[number].question,option1:foundmcq[number].op1,option2:foundmcq[number].op2,option3:foundmcq[number].op3,option4:foundmcq[number].op4});
+});
 
 
-})}
-
-
+}
 
 });
 
@@ -180,34 +176,64 @@ else{
 app.post("/",function(req,res){
 
   var option=Number(req.body.select);
-  userOptions.push(option);
+
+
+var databaseAnswer;
+
+  biology.find({},function(err,foundmcq){
+
+    databaseAnswer=foundmcq[number].correct;
+
+  //res.send("The database is "+ foundmcq[number].op1 +" and now the user entered is  "+databaseAnswer);
+
+
+if(option===1)
+{
+  if(foundmcq[number].op1===databaseAnswer)
+  {
+    score++;
+  }
+}
+
+else if(option===2)
+{
+  if(foundmcq[number].op2===databaseAnswer)
+  {
+    score++;
+  }
+}
+
+else if(option===3)
+{
+  if(foundmcq[number].op3===databaseAnswer)
+  {
+    score++;
+  }
+}
+
+
+else if(option===4)
+{
+  if(foundmcq[number].op4===databaseAnswer)
+  {
+    score++;
+  }
+}
+
+//res.send("The database is "+ foundmcq[number].op3 +" and now the user entered is "+option+"  " +databaseAnswer+score);
+
   number++;
+
+
+  });
+
+
 
   res.redirect("/test");
 
 });
 
 
-app.get("/score",function(req,res){
-
-
-var score=0;
-
-for(var i=0;i<4;i++)
-
-
-{
-
-if(correctOptions[i]===userOptions[i])
-{
-  score++;
-}
-
-}
-
-  res.send("Your score is "+score);
-
-});
 
 
 
