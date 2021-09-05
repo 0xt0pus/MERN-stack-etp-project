@@ -140,18 +140,12 @@ var number=0;
 
 app.get("/", function(req, res) {
 
-
-
-
   res.sendFile(__dirname+"/original/index.html");
 
 });
 
 
-
-
 app.get("/test", function(req,res){
-
 
 
 if(number==2)
@@ -166,8 +160,6 @@ else{
   //  console.log(foundmcq)
     res.render("question-design",{question:foundmcq[number].question,option1:foundmcq[number].op1,option2:foundmcq[number].op2,option3:foundmcq[number].op3,option4:foundmcq[number].op4});
 });
-
-
 }
 
 });

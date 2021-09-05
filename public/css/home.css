@@ -1,86 +1,176 @@
-.navbar-brand
-{
-    padding-left: 10px;
+body{
+  font-family: 'Roboto', sans-serif;
 }
-
+.navbar-brand {
+  padding-left: 10px;
+}
 
 .site-header {
-    width: 100%;
-    height: 100vh;
-    background: #1E4D92;
-    background: linear-gradient(57deg,   #7400B8 ,#48BFE3); 
+  /* width: 100%; */
+  background: #fbfefa;
+  /* background: linear-gradient(57deg,    #adced8,#fbfefa);  */
+}
+
+.navbar-light .navbar-nav .nav-link {
+  color: #48BFE3;
+}
+
+.fontNAv {
+  font-family: 'Lato', sans-serif;
+}
+
+.hello {
+  width: 100%;
+  height: 100vh;
+  /* border: black solid 1px; */
+}
+
+.leftside {
+  width: 100%;
+  /* overflow: hidden;  */
+  margin-top: 93px;
+  border-radius: 3px black solid;
+}
+
+.leftside img {
+  max-width: 100%;
+  height: auto;
+  bottom: 40px;
+}
+
+.leftUpper {
+  padding-left: 220px;
+  height: 70vh;
+}
+
+.rightUpper {
+  padding-right: 180px;
+  height: 70vh;
+}
+
+.rightside {
+  width: 100%;
+  /* color: #clack; */
+  /* text-align: center; */
+  margin-top: 135px;
+  padding: 40px;
+  /* background-color:blue; */
+}
+
+.rightside h1 {
+  text-align: center;
+  /* color: #48BFE3; */
+  font-size: 45px;
+  font-weight: 900;
 
 }
 
-
-.navbar-light .navbar-nav .nav-link{
-    color: #48BFE3;
+.rightside h2 {
+  font-size: 45px;
+  font-weight: 500;
 }
 
-.fontNAv{
-    font-family: 'Lato', sans-serif;
-
+.rightside p {
+  font-size: 1.1rem;
+  padding: 30px 0;
 }
 
-
-
-
-
-
-
-
-
-
-section{ display: flex;  }
-
-.leftside { width: 45%; 
-    height: auto; 
-    overflow: hidden; 
-    margin-top: 110px;
+.btn {
+  background: #3498db;
+  background-image: -webkit-linear-gradient(top, #3498db, #2980b9);
+  background-image: -moz-linear-gradient(top, #3498db, #2980b9);
+  background-image: -ms-linear-gradient(top, #3498db, #2980b9);
+  background-image: -o-linear-gradient(top, #3498db, #2980b9);
+  background-image: linear-gradient(to bottom, #3498db, #2980b9);
+  -webkit-border-radius: 19;
+  -moz-border-radius: 19;
+  border-radius: 19px;
+  font-family: Arial;
+  color: #ffffff;
+  font-size: 19px;
+  padding: 10px 20px 10px 20px;
+  text-decoration: none;
 }
 
+.btn:hover {
+  background: #3cb0fd;
+  text-decoration: none;
+}
 
-.leftside img{  
-    width: 700px;
-      height: 600px;
-     }
+@media only screen and (max-width: 600px) {
+  .leftUpper {
+    padding-left: 80px;
+  }
 
-
-
-.rightside{ 
-    width: 55%;
-    height: 300px;
-    color: #48BFE3;
+  .rightside {
     text-align: center;
-    margin-top: 180px;
-    padding: 40px;
-    }
+  }
 
+  .rightUpper {
+    padding-right: 10px;
+  }
 
-.rightside h1{ 
-    
+  .rightside h2 {
+    font-size: 35px;
+    font-weight: 500;
+  }
+}
+
+@media only screen and (min-width: 600px) {
+  .leftUpper {
+    padding-left: 115px;
+  }
+
+  .rightside {
     text-align: center;
-    color: #48BFE3;
-    font-size: 50px;
-    font-weight: 900;
-    text-transform: uppercase; } 
+  }
 
-.rightside p {  
-    font-size: 1.1rem;
-     padding: 30px 0; }
+  .rightUpper {
+    padding-right: 10px;
+  }
 
-.rightside button{   font-size: 17px;
-    font-weight: 600;
-    color: white;
-    text-transform: uppercase;
-    background: linear-gradient(57deg, #3b67b4,#5d77cc  ); 
-    border-radius: 2px 2px 2px 2px;
-    padding: 20px 35px ; 
+  .rightside h2 {
+    font-size: 35px;
+    font-weight: 500;
+  }
 }
 
+@media only screen and (min-width: 768px) {
+  .leftUpper {
+    padding-left: 170px;
+  }
 
+  .rightside {
+    text-align: center;
+  }
 
-.rightside button:hover{
-      background: linear-gradient(57deg, #5583d5, #5975d2 );   
+  .rightUpper {
+    padding-right: 10px;
+  }
+
+  .rightside h2 {
+    font-size: 45px;
+    font-weight: 500;
+
+  }
 }
-   
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+  .leftUpper {
+    padding-left: 220px;
+  }
+
+  .rightside {
+    text-align: left;
+  }
+
+  .rightside h2 {
+    font-size: 45px;
+    font-weight: 500;
+  }
+}
+
+.navbar>.container, .navbar>.container-fluid, .navbar>.container-lg, .navbar>.container-md, .navbar>.container-sm, .navbar>.container-xl, .navbar>.container-xxl {
+  text-align: center;
+}
