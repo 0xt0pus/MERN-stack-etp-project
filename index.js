@@ -3,6 +3,7 @@ const bodyParser = require("body-parser");
 const ejs=require("ejs");
 const mongoose=require("mongoose");
 const dotenv=require("dotenv");
+const bcrypt=require("bcryptjs");
 
 dotenv.config({path:'./config.env'})
 // Connecting to db
@@ -12,32 +13,12 @@ require('./db/databaseConnection.js');
 
 var score=0;
 
-//requiring models
-// const biology=require("./models/schema.js");
-// const physics=require("./models/schema.js");
 
 
-const questionSchema=new mongoose.Schema({
-  question:String,
-  op1:String,
-  op2:String,
-  op3:String,
-  op4:String,
-  correct:String,
-  subject:String,
-  id:Number,
-  pmcTestNumber:Number
+const biology=require("./models/biologyschema.js");
+const physics=require("./models/physicsschema.js");
 
-});
-
-const biology=mongoose.model('biology'/*This is what defining the name of our collection in database*/,questionSchema);
-const physics=mongoose.model('physics'/*This is what defining the name of our collection in database*/,questionSchema);
-
-
-
-
-
-
+const User=require('./models/userschema.js');
 
 
 const app = express();
@@ -53,96 +34,158 @@ app.use(express.static("public"));
 
 var number=0;
 
-// var correctOptions=[4,3,1,2];
-// var userOptions=[];
-
-
-
-
-// const biologysch={
-//
-// question:String,
-// op1:String,
-// op2:String,
-// op3:String,
-// op4:String,
-// subject:String,
-// correct:String,
-// pmcTestNumber:Number
-//
-// };
-// //
-// const biology=mongoose.model("biology",biologysch);
-//
-// const mcq1=new mcq({
-//
-//   question:"what is the name of your country?",
-//   op1:"Pakistan",
-//   op2:"ALgeria",
-//   op3:"india",
-//   op4:"Afghanistan",
-//   correct:"Pakistan"
-// });
-//
-// const mcq2=new mcq({
-//
-//   question:"what is the nam2e of your country?",
-//   op1:"Paki2stan",
-//   op2:"ALgeria",
-//   op3:"indi2a",
-//   op4:"Afghanistan",
-//   correct:"Pakistan"
-// });
-//
-//
-// const mcq3=new mcq({
-//
-//   question:"what is the name of your country3?",
-//   op1:"Pakist3an",
-//   op2:"ALgeria",
-//   op3:"india",
-//   op4:"Afghanistan",
-//   correct:"Pakistan"
-// });
-//
-//
-//
-//
-// const mcq4=new mcq({
-//
-//   question:"what is the name of your country4?",
-//   op1:"Pakistan4",
-//   op2:"ALgeria4",
-//   op3:"india",
-//   op4:"Afghanistan",
-//   correct:"Pakistan"
-// });
-//
-//
-//
-// const mcq5=new mcq({
-//
-//   question:"what is the name of your country5?",
-//   op1:"Pakistan5",
-//   op2:"ALgeria5",
-//   op3:"india",
-//   op4:"Afghanistan",
-//   correct:"Pakistan"
-// });
-
-
-
-
-
-// const defaultmcqs=[mcq1,mcq2,mcq3,mcq4,mcq5];
-
-
 
 app.get("/", function(req, res) {
 
   res.sendFile(__dirname+"/original/index.html");
 
 });
+
+
+
+app.get("/signup",function(req,res){
+
+  res.render("signup",{error:""});
+
+});
+
+
+app.post("/signup",function(req,res)
+{
+
+    const {email,username,password1,password2}=req.body;
+
+    // res.send(email+username+password1+password2);
+
+  if(!email || !username || !password1 || !password2)
+  {
+      res.render("signup",{error:"Empty field is not allowed, Please fill all fields "});
+  }
+
+  else if(password1!=password2)
+  {
+    res.render("signup",{error:"Both passwords must match"});
+
+  }
+
+
+
+    const userexist= User.findOne({email:email},async(err,found)=>{
+
+    if(found)
+    {
+
+      // res.send(found);
+
+      res.render("signup",{error:"Email Already Exist"});
+    }
+
+    else{
+
+      const hashedPassword1= await bcrypt.hash(password1,12);
+      const hashedPassword2= await bcrypt.hash(password2,12);
+
+
+      const user=new User({email,username,
+        password1:hashedPassword1,
+        password2:hashedPassword2,
+      });
+      user.save();
+
+      res.render("signup",{error:"Register successfully, login to continue"});
+
+    }
+
+
+  });
+
+
+  });
+
+
+
+
+
+
+
+
+// });
+
+
+
+
+app.get("/login",function(req,res){
+
+  res.render("login",{error:""});
+
+});
+
+
+
+app.post("/login",function(req,res){
+
+  const {email,password}=req.body;
+
+
+if(!email || ! password)
+{
+  res.render("login",{error:"Empty field is not allowed"});
+}
+
+else {
+
+
+
+
+
+  const userexist= User.findOne({email:email},async(err,found)=>{
+
+  if(found)
+  {
+
+
+    const isMatched=await bcrypt.compare(password,found.password1);
+
+    if(isMatched)
+    {
+      res.send("logged in");
+    }
+    else
+    {
+      res.render("login",{error:"Password is incorrect"});
+
+
+    }
+  }
+
+  else{
+    res.render("login",{error:"Email not found!"});
+  }
+
+
+  });
+
+
+
+
+
+
+
+
+
+
+}
+
+
+
+
+
+
+
+});
+
+
+
 
 
 app.get("/test", function(req,res){

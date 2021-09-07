@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<!-- Created By CodingLab - www.codinglabweb.com -->
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+       <!-- Bootstrap CSS -->
+       <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+       <link rel="stylesheet" href="css/registration.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"/>
+  </head>
+  <body>
+
+
+
+    <div class="container">
+      <div class="wrapper">
+        <div class="title"><span>Login</span></div>
+        <!-- <hr> -->
+
+
+        <form action="login" method="post">
+
+
+          <div class="row">
+            <i class="fas fa-user"></i>
+            <input type="email" placeholder="Email address" name="email" required>
+          </div>
+
+
+          <div class="row">
+            <i class="fas fa-lock"></i>
+            <input type="password" placeholder="Password" name="password" required>
+          </div>
+
+
+          <div class="pass"><a href="#">Forgot password?</a></div>
+          <div class="err">
+    <%= error %>
+          </div>
+
+
+          <div class="row button">
+            <input type="submit" value="Login">
+          </div>
+          <div class="signup-link">Not a member? <a href="http://localhost:3000/signup">Signup now</a></div>
+
+        </form>
+
+
+
+
+      </div>
+    </div>
+
+  </body>
+</html>
